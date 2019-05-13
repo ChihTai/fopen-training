@@ -1,0 +1,1 @@
+$BOM = chr(0xEF).chr(0xBB).chr(0xBF); //BOM頭,部份編輯器需有BOM頭才能正確辦識編碼
