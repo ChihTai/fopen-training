@@ -26,14 +26,15 @@ li{
 </form>
 <?php
 
-//根據post的值來決定撈取的年份
+//根據POST的值來決定要撈取的資料年份
 if(!empty($_POST['year'])){
-    $year=$_POST['year'];
+  $year=$_POST['year'];
 }else{
-    $year="105年";
+  $year="105年";
 }
 
-$dsn="mysql:host=Localhost;charset=utf8;dbname=shop";
+
+$dsn="mysql:host=localhost;charset=utf8;dbname=shop";
 $pdo=new PDO($dsn,"root","");
 
 $sql="select * from labor where years='$year'";
@@ -43,21 +44,20 @@ $file=fopen("labor".$year.".csv","w");
 $str=chr(0xEF).chr(0xBB).chr(0xBF);
 
 foreach($rows as $r){
-echo "<ul>";
-echo "<li>".$r['years']."</li>";
-echo "<li>".$r['name']."</li>";
-echo "<li>".$r['description']."</li>";
-echo "<li>".$r['duration']."</li>";
-echo "<li>".$r['url']."</li>";
-echo "</ul>";
-$str=$str . $r['years'].",".$r['name'].",".$r['description'].",".$r['duration'].",".$r['url']."\r\n";
+  echo "<ul>";
+  echo "<li>".$r['years']."</li>";
+  echo "<li>".$r['name']."</li>";
+  echo "<li>".$r['description']."</li>";
+  echo "<li>".$r['duration']."</li>";
+  echo "<li>".$r['url']."</li>";
+  echo "</ul>";
+  $str=$str . $r['years'] .",".$r['name'].",".$r['description'].",".$r['duration'].",".$r['url']."\r\n";
 }
 
 //echo $str;
-
 fwrite($file,$str);
 fclose($file);
 
 ?>
-<a href="labor<?=$year;?>.csv" download>下載<?=$year;?>度勞工調查資料</a>
 
+<a href="labor<?=$year;?>.csv" download>下載<?=$year;?>度勞工調查資料</a>
